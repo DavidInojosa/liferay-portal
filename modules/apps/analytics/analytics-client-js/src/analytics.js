@@ -568,12 +568,17 @@ class Analytics {
 	 * @return {object}
 	 */
 	_serialize(eventId, applicationId, properties, contextHash) {
-		const eventDate = new Date().toISOString();
+		const date = new Date();
+		const eventDate = date.toISOString();
+		const eventDateLocal = new Date(
+			date.getTime() - date.getTimezoneOffset() * 60000
+		).toISOString();
 
 		return {
 			applicationId,
 			contextHash,
 			eventDate,
+			eventDateLocal,
 			eventId,
 			properties
 		};
